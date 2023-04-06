@@ -1,0 +1,65 @@
+#importante i file cifrati con gramine devono essere copiati nell'uri altrimenti invalid path!! che cagata
+
+loader.entrypoint = "file:{{ gramine.libos }}"
+libos.entrypoint = "{{ entrypoint }}"
+
+loader.log_level = "{{ log_level }}"
+loader.insecure__use_cmdline_argv = true
+
+loader.env.LD_LIBRARY_PATH = "/lib:/lib:{{ arch_libdir }}:/usr/{{ arch_libdir }}"
+loader.env.LD_PRELOAD = "libsecret_prov_attest.so"
+loader.env.SECRET_PROVISION_CONSTRUCTOR = "1"
+loader.env.SECRET_PROVISION_SET_KEY = "default"
+loader.env.SECRET_PROVISION_CA_CHAIN_PATH = "/ca.crt"
+loader.env.SECRET_PROVISION_SERVERS = "localhost:4433;"
+
+loader.env.OMP_NUM_THREADS = "4"
+
+fs.mounts = [
+  { path = "/lib", uri = "file:{{ gramine.runtimedir() }}" },
+  { path = "{{ arch_libdir }}", uri = "file:{{ arch_libdir }}" },
+  { path = "/usr/{{ arch_libdir }}", uri = "file:/usr/{{ arch_libdir }}" },
+  
+  {% for path in python.get_sys_path(entrypoint) %}
+      { path = "{{ path }}", uri = "file:{{ path }}" },
+  {% endfor %}
+  
+  { type = "tmpfs", path = "/tmp" },
+  
+  { path = "{{ entrypoint }}", uri = "file:{{ entrypoint }}" },
+  { path = "/ca.crt", uri = "file:ssl/ca.crt" },
+  { path = "/etc/hosts", uri = "file:hosts" },
+  
+  { type = "encrypted", path = "/input/1.txt", uri = "file:/home/lorenzo/Documenti/gramine-examples/sgx2-secret-provisioning/rete/1.txt" },
+  { type = "encrypted", path = "/input/2.txt", uri = "file:/home/lorenzo/Documenti/gramine-examples/sgx2-secret-provisioning/rete/2.txt" },
+  { type = "encrypted", path = "/output/", uri = "file:encrOut/"},
+]
+
+sys.stack.size = "2M"
+#sys.enable_extra_runtime_domain_names_conf = true
+
+sgx.enclave_size = "256M"
+sgx.debug = true
+
+sgx.remote_attestation = "epid"
+sgx.ra_client_linkable = false
+sgx.ra_client_spid = "your key"
+
+sgx.trusted_files = [
+  "file:{{ gramine.libos }}",
+  "file:{{ gramine.runtimedir() }}/",
+  "file:{{ entrypoint }}",
+  "file:/etc/host.conf",
+  "file:/etc/hosts",
+  "file:/etc/nsswitch.conf",
+  "file:/etc/resolv.conf",
+  "file:ssl/ca.crt",
+  "file:hosts",
+  
+  "file:{{ arch_libdir }}/",
+  "file:/usr/{{ arch_libdir }}/",
+  {% for path in python.get_sys_path(entrypoint) %}
+      "file:{{ path }}{{ '/' if path.is_dir() else '' }}",
+  {% endfor %}
+  "file:code_base/",
+]
