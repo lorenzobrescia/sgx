@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
     puts("--- Starting the Secret Provisioning server on port 4433 ---");
     ret = secret_provision_start_server(secret_key, SECRET_KEY_SIZE,
                                         "4433", SRV_CRT_PATH, SRV_KEY_PATH,
-                                        NULL,
+                                        verify_measurements_callback,
                                         NULL);
     if (ret < 0) {
         fprintf(stderr, "[error] secret_provision_start_server() returned %d\n", ret);
