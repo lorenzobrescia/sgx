@@ -72,6 +72,12 @@ source ${sgx-sdk-install-path}/environment
 
 ### Build and install PSW
 
+The easiest (and recommended) way to install the PSW is to build the local RPM package repository and then use it to install the required packages. In order to do that, you need:
+1. Move in the root directory of the previously cloned repository
+2. Build the local RPM package repository with the ```make rpm_local_repo``` command
+
+
+
 ### Adjust User Group
 
 On any distro with systemd v248 or later, ```/dev/sgx_enclave``` is only accessible by users in the group ```sgx```. The enclave app should be run with a uid in the sgx group:
