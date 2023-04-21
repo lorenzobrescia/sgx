@@ -87,7 +87,7 @@ To install the Intel SGX PSW package from the the local RPM package repository, 
 ```
 dnf install --nogpgcheck libsgx-urts libsgx-launch libsgx-epid  libsgx-quote-ex  libsgx-dcap-ql  \
 libsgx-enclave-common-devel libsgx-dcap-ql-devel libsgx-dcap-default-qpl-devel libsgx-quote-ex-devel \
-libsgx-launch-devel libsgx-epid-devel libsgx-dcap-quote-verify-devel \
+libsgx-launch-devel libsgx-epid-devel libsgx-dcap-quote-verify-devel
 ```
 
 ### Adjust User Group
@@ -100,6 +100,17 @@ systemctl --version
 # add sgx group to user if it's 248 or above:
 sudo usermod -a -G sgx <user name>
 ```
+
+### Test the Intel SGX Setup
+
+To check the previous installation, you can use the Intel samples located in ```${sgx-sdk-install-path}/SampleCode/```. In this folder there are many examples that can be built and run. For example to test the Local Attestation:
+```
+cd ${sgx-sdk-install-path}/SampleCode/LocalAttestation
+make
+cd bin
+./app
+```
+TODO: successful output example
 
 ## Setup DCAP infrastructure
 
