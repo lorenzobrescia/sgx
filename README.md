@@ -72,10 +72,21 @@ source ${sgx-sdk-install-path}/environment
 
 ### Build and install PSW
 
+### Adjust User Group
+
+On any distro with systemd v248 or later, ```/dev/sgx_enclave``` is only accessible by users in the group ```sgx```. The enclave app should be run with a uid in the sgx group:
+```
+# check systemd version:
+systemctl --version
+
+# add sgx group to user if it's 248 or above:
+sudo usermod -a -G sgx <user name>
+```
+
+## Setup DCAP infrastructure
+
 ## Setup Gramine
 
 ### Build
 
 ### Install
-
-## Setup DCAP infrastructure
