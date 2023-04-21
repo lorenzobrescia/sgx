@@ -19,16 +19,20 @@ The following guide is intended to assist in setting up several components that 
 ### Prerequisites
 
 ### Useful Links
-[Github Intel SGX Repository] (https://github.com/intel/linux-sgx)
-[Github Gramine Repository] (https://github.com/gramineproject/gramine)
-[Github DCAP Repository] (https://github.com/intel/SGXDataCenterAttestationPrimitives/)
+[Github Intel SGX Repository](https://github.com/intel/linux-sgx)
 
-[Gramine Build and Installation] (https://gramine.readthedocs.io/en/stable/devel/building.html)
-[Intel SGX Software Installation Guide For Linux OS] (https://download.01.org/intel-sgx/latest/dcap-latest/linux/docs/Intel_SGX_SW_Installation_Guide_for_Linux.pdf)
-[Intel SGX DCAP Quick Install Guide] (https://www.intel.com/content/www/us/en/developer/articles/guide/intel-software-guard-extensions-data-center-attestation-primitives-quick-install-guide.html)
+[Github Gramine Repository](https://github.com/gramineproject/gramine)
+
+[Github DCAP Repository](https://github.com/intel/SGXDataCenterAttestationPrimitives/)
+
+[Gramine Build and Installation](https://gramine.readthedocs.io/en/stable/devel/building.html)
+
+[Intel SGX Software Installation Guide For Linux OS](https://download.01.org/intel-sgx/latest/dcap-latest/linux/docs/Intel_SGX_SW_Installation_Guide_for_Linux.pdf)
+
+[Intel SGX DCAP Quick Install Guide](https://www.intel.com/content/www/us/en/developer/articles/guide/intel-software-guard-extensions-data-center-attestation-primitives-quick-install-guide.html)
 
 
-## Setup SGX components
+## Setup SGX components on your cloud
 
 All the documentation needed for this section can be found in the following [Github repository](https://github.com/intel/linux-sgx). In order to setup SGX components, you have to:
 
@@ -121,10 +125,15 @@ cd bin
 ```
 TODO: successful output example
 
-## Setup DCAP infrastructure
+## Setup DCAP infrastructure on your cloud
 
-## Setup Gramine
+
+
+## Setup Gramine on your cloud
 
 ### Build
 
 ### Install
+
+## Setup Relying Party Machine
+
