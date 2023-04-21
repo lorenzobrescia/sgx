@@ -76,7 +76,19 @@ The easiest (and recommended) way to install the PSW is to build the local RPM p
 1. Move in the root directory of the previously cloned repository
 2. Build the local RPM package repository with the ```make rpm_local_repo``` command
 
+Now, the local package repository is located under ```linux/installer/rpm/sgx_rpm_local_repo```. If you want to use it, you need to add it to the system repository configuration. Since the local package repository is not signed with GPG, you should ignore the gpgcheck when installing the packages with the ```--nogpgcheck``` option.
 
+To add the local RPM package repository to the system repository configuration give the following command: 
+```
+sudo dnf config-manager --add-repo=file://PATH_TO_LOCAL_REPO
+```
+
+To install the Intel SGX PSW package from the the local RPM package repository, run the following command:
+```
+dnf install --nogpgcheck libsgx-urts libsgx-launch libsgx-epid  libsgx-quote-ex  libsgx-dcap-ql  \
+libsgx-enclave-common-devel libsgx-dcap-ql-devel libsgx-dcap-default-qpl-devel libsgx-quote-ex-devel \
+libsgx-launch-devel libsgx-epid-devel libsgx-dcap-quote-verify-devel \
+```
 
 ### Adjust User Group
 
