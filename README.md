@@ -17,6 +17,17 @@ In order for the PCCS to be able to request the SGX platform specific collateral
 
 ### Goals
 
+The cloud provider machines have to run SGX enclave and the PCCS. In order to do that we need setup on the cloud:
+- SGX
+- DCAP
+- Gramine
+
+The relying party machine have to run a service for the remote attestation. To do that we need setup:
+- DCAP components for the verification of the quote
+- Gramine, to get libraries for the process of the remote attestation
+
+The final goal is obtain the following scheme:
+
 ### Work environment
 
 - Operating system: 
