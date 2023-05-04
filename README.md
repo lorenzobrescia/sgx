@@ -18,13 +18,13 @@ In order for the PCCS to be able to request the SGX platform specific collateral
 ### Goals
 
 The cloud provider machines have to run SGX enclave and the PCCS. In order to do that we need setup on the cloud:
-- SGX
-- DCAP
-- Gramine
+- SGX to run process inside an enclave
+- DCAP components to generate the quote
+- Gramine to run unmodified application inside Intel SGX enclaves
 
 The relying party machine have to run a service for the remote attestation. To do that we need setup:
-- DCAP components for the verification of the quote
-- Gramine, to get libraries for the process of the remote attestation
+- DCAP components to verificate of the quote
+- Gramine to get libraries for the process of the remote attestation
 
 The final goal is obtain the following scheme:
 
@@ -67,21 +67,21 @@ dnf install ocaml ocaml-ocamlbuild wget python3 openssl-devel git cmake perl \
 openssl-devel libcurl-devel protobuf-devel cmake rpm-build createrepo yum-utils \
 pkgconf boost-devel protobuf-lite-devel systemd-libs
 ```
-1. Create an alternative for the python3 command:
+2. Create an alternative for the python3 command:
 ```
 alternatives --install /usr/bin/python python /usr/bin/python3 1
 alternatives --set python /usr/bin/python3
 ```
-1. Clone the repository for the source code:
+3. Clone the repository for the source code:
 ```
 git clone https://github.com/intel/linux-sgx
 cd linux-sgx
 ```
-1. Trigger trigger the script ```download_prebuilt.sh```:
+4. Trigger trigger the script ```download_prebuilt.sh```:
 ```
 make preparation
 ```
-1. Copy the mitigation tools corresponding to current OS distribution from ```external/toolset/{current_distr}``` to ```/usr/local/bin``` and make sure they have execute permission. For example:
+5. Copy the mitigation tools corresponding to current OS distribution from ```external/toolset/{current_distr}``` to ```/usr/local/bin``` and make sure they have execute permission. For example:
 ```
 cp external/toolset/rhel8.6/* /usr/local/bin
 which ar as ld objcopy objdump ranlib
