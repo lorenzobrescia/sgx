@@ -10,7 +10,8 @@ The following guide is intended to assist in setting up several components that 
 In short, the untrusted cloud service provider (SGX platform) attests to a relying party as follows:
   1. The cloud generates a quote which it sends to the relying party. The quote is signed and describes the trusted computing base (TCB) of the system and other useful information for the attestation process.
   2. The relying party receives the quote and verifies that the signature is from the legitimate sgx platform. Subsequently, if the signature is correct, check the information contained in the estimate to decide whether to trust or not. For example, if the TCB is not updated, then the untrusted machine may not have security patches and the relying party may decide untrusting it.
-  To carry out these operations (generation and verification of the quote), both parties require information that can be obtained by the Intel Provision Certification Service (*PCS*).
+
+- To carry out these operations (generation and verification of the quote), both parties require information that can be obtained by the Intel Provision Certification Service (*PCS*).
 The PCS is an intel service that generates signed collateral. To eliminate the need to contact the PCS at runtime, among the primitive DCAP, Intel has provided a Provision Certification Caching Service (*PCCS*) that acts as a proxy cache of the collaterals obtained from the PCS. Using PCCS, provisioning must only be done during the deployment phase and there is not need of internet live access at runtime.
 In order for the PCCS to be able to request the SGX platform specific collateral, some hardware information must be provided. Again Intel helps accomplish this task through the use of a simple program, the PCK ID Retrieval tool.
 
