@@ -1,4 +1,4 @@
-# Title
+# Install and configure a complete Trust Execution Environment using Intel CPUs
 
 ## Introduction
 
@@ -55,6 +55,8 @@ The final goal is obtain the following scheme:
 - Operating system: Rocky Linux 9.1 (Blue Onyx)
 - Linux kernel version: 5.14.0
 - CPUs: Intel(R) Xeon(R) Gold 6346
+
+### Staging step
 
 All the documentation needed for this section can be found in the following [Github repository](https://github.com/intel/linux-sgx). In order to setup SGX components, you have to:
 
@@ -149,7 +151,18 @@ TODO: successful output example
 
 ## Setup DCAP infrastructure on your cloud
 
+We will install and configure a trivial but completely functional infrastracture for the remote attestation. You can follow this [official Intel guide](https://www.intel.com/content/www/us/en/developer/articles/guide/intel-software-guard-extensions-data-center-attestation-primitives-quick-install-guide.html).
 
+Below is given an overview of the required steps:
+1. Subscribe to the Intel PCS for ECDSA Attestation and obtain the required API keys. [API portal](https://api.portal.trustedservices.intel.com/developer)
+2. Set up the Provisioning Certification Caching Service (PCCS)
+3. Provision the Intel SGX enabled platform for Intel SGX workloads
+
+### Obtain API keys
+
+### Set up PCCS
+
+### Provision Intel SGX enabled platform
 
 ## Setup Gramine on your cloud
 
