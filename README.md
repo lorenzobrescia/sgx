@@ -28,14 +28,6 @@ The relying party machine have to run a service for the remote attestation. To d
 
 The final goal is obtain the following scheme:
 
-### Work environment
-
-- Operating system: 
-- Linux kernel version: 
-- CPUs: 
-
-### Prerequisites
-
 ### Useful Links
 [Github Intel SGX Repository](https://github.com/intel/linux-sgx)
 
@@ -51,6 +43,18 @@ The final goal is obtain the following scheme:
 
 
 ## Setup SGX components on your cloud
+
+### Prerequisites
+
+- Linux kernel with SGX driver. That is available since the 5.11 kernel version
+- Due to the use of built-in kernel SGX driver, the processor requires Flexible Launch Control (FLC) feature. Follow the [official documentation](https://www.intel.com/content/www/us/en/support/articles/000057420/software/intel-security-products.html) to check if this feature is available
+- SGX features enabled in the BIOS
+
+### Working environment
+
+- Operating system: Rocky Linux 9.1 (Blue Onyx)
+- Linux kernel version: 5.14.0
+- CPUs: Intel(R) Xeon(R) Gold 6346
 
 All the documentation needed for this section can be found in the following [Github repository](https://github.com/intel/linux-sgx). In order to setup SGX components, you have to:
 
