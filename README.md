@@ -27,7 +27,7 @@ The relying party machine have to run a service for the remote attestation. To d
 - Gramine to get libraries for the process of the remote attestation
 
 The final goal is obtain the following scheme:
-![Scheme](./sgx.svg)
+
 
 ### Useful Links
 [Github Intel SGX Repository](https://github.com/intel/linux-sgx)
