@@ -172,7 +172,7 @@ By doing this you will have obtained the keys that will be used to configure the
 
 ### Set up PCCS
 
-As shown in the figure of the [goals section](#goals), the PCCS caching service resides within the local network of the cloud. In our case, PCCS is installed on a different machine (ubuntu 22.04 LTS) than the SGX-enabled ones. However, this separation is not required and everything can be installed and configured in a single machine.
+As shown in the figure of the [goals section](#goals), the PCCS caching service resides within the local network of the cloud. In our case, PCCS is installed on a different machine (Ubuntu 22.04 LTS) than the SGX-enabled ones (Rocky Linux 9.1). However, this separation is not required and everything can be installed and configured in a single machine.
 
 The PCCS package has a dependency on Node.js version 14, so the first step is to install it:
 ```
@@ -225,6 +225,16 @@ Useful information about PCCS:
 - The log file is located in ```/opt/intel/sgx-dcap-pccs/logs/pccs_server.log```
 
 ### Provision Intel SGX enabled platform
+
+The ```sgx-pck-id-retrieval-tool``` is provided by the local repository that we built in the [PSW section](#build-and-install-psw). So, in order to download it, just give the follwing command:
+```
+dnf install --nogpgcheck sgx-pck-id-retrieval-tool
+```
+
+The provisioning tool needs to communicate with the PCCS service, therefore it needs to be configured. To do that:
+1. Move to the folder ```cd /opt/intel/sgx-pck-id-retrieval-tool/```
+2. Change the ```network_setting.conf```:
+  - 
 
 ## Setup Gramine on your cloud
 
