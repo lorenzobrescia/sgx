@@ -155,11 +155,20 @@ TODO: successful output example
 We will install and configure a trivial but completely functional infrastracture for the remote attestation. You can follow this [official Intel guide](https://www.intel.com/content/www/us/en/developer/articles/guide/intel-software-guard-extensions-data-center-attestation-primitives-quick-install-guide.html).
 
 Below is given an overview of the required steps:
-1. Subscribe to the Intel PCS for ECDSA Attestation and obtain the required API keys. [API portal](https://api.portal.trustedservices.intel.com/developer)
+1. Subscribe to the Intel PCS for ECDSA Attestation and obtain the required API keys
 2. Set up the Provisioning Certification Caching Service (PCCS)
 3. Provision the Intel SGX enabled platform for Intel SGX workloads
 
 ### Obtain API keys
+
+To subscribe to PCS service and obtain the API keys, you need:
+1. Go on the [API portal](https://api.portal.trustedservices.intel.com/)
+2. Sign-in or Sing-up
+3. Select the Intel® SGX Provisioning Certification Service
+4. Subscribe to "Get PCK Certificate/s"
+5. Follow the instruction to conclude the subscription
+
+By doing this you will have obtained the keys that will be used to configure the PCCS
 
 ### Set up PCCS
 
