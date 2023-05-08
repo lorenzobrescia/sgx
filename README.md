@@ -21,9 +21,9 @@
   * [Build](#build)
   * [Install](#install)
 * [Setup Relying Party Machine](#Setup-Relying-Party-Machine)
-  * [Preliminary steps](#Preliminary-steps)
-  * [Build](#build)
-  * [Install](#install)
+  * [Preliminary steps to install Gramine](#Preliminary-steps-to-install-Gramine)
+  * [Build Gramine](#build-gramine)
+  * [Install Gramine](#install-gramine)
 
 ## Introduction
 
@@ -361,7 +361,7 @@ As shown in the figure of the [goals section](#goals), the relying party machine
 
 The procedure for building and installing Gramine is similar to the [previous section](#setup-gramine-on-your-cloud). The only difference is that the SGX platform runs Gramine on Rocky Linux, while the Relying Party will run Gramine on Ubuntu 22.04 LTS.
 
-### Preliminary steps
+### Preliminary steps to install Gramine
 
 Download all the necessary packages as follows:
 ```
@@ -390,7 +390,7 @@ Finally you have to configure the QPL to contact the right PCCS. To make that yo
 - Set the ```PCCS_URL``` parameter to the location of the PCCS server
 - Set the ```USE_SECURE_CERT``` parameter to "FALSE" since we’re using a self-signed certificate
 
-### Build
+### Build Gramine
 
 In order to build Gramine, you need:
 1. Clone the repository
@@ -409,7 +409,7 @@ meson setup build/ \
 ninja -C build/
 ```
 
-### Install
+### Install Gramine
 
 Once gramine has been built, you can install it as follows:
 ```
