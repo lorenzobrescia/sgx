@@ -170,7 +170,7 @@ To subscribe to PCS service and obtain the API keys, you need:
 
 By doing this you will have obtained the keys that will be used to configure the PCCS
 
-### Set up PCCS
+### Setup PCCS
 
 As shown in the figure of the [goals section](#goals), the PCCS caching service resides within the local network of the cloud. In our case, PCCS is installed on a different machine (Ubuntu 22.04 LTS) than the SGX-enabled ones (Rocky Linux 9.1). However, this separation is not required and everything can be installed and configured in a single machine.
 
@@ -232,9 +232,27 @@ dnf install --nogpgcheck sgx-pck-id-retrieval-tool
 ```
 
 The provisioning tool needs to communicate with the PCCS service, therefore it needs to be configured. To do that:
-1. Move to the folder ```cd /opt/intel/sgx-pck-id-retrieval-tool/```
-2. Change the ```network_setting.conf```:
-  - 
+1. Move to the right working directory 
+```
+cd /opt/intel/sgx-pck-id-retrieval-tool/
+```
+3. Change the ```network_setting.conf``` file like follows:
+  - The ```PCCS_URL``` have to match your caching service’s location
+  - Uncomment the ```user_token``` parameter, and set it to the user password you created when configuring the PCCS ([PCCS section](#setup-pccs))
+  - Set the ```proxy_type``` to fit your environment (most likely this will be "direct")
+  - Ensure ```USE_SECURE_CERT``` is set to "FALSE" since we’re using a self-signed certificate
+4. Add the current user to the ```sgx_prv``` group
+```
+sudo usermod -a G sgx_prv username
+```
+4. Close and re-open the terminal (group changes will take effect)
+5. Run the provisioning tool
+```
+PCKIDRetrievalTool
+```
+Maybe there will be warnings, but the most important thing is to read "the data has been sent to the cache service successfully". This means that the provisioning tool was able to successfully contact the PCCS.
+
+
 
 ## Setup Gramine on your cloud
 
