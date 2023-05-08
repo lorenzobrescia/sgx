@@ -1,5 +1,30 @@
 # Install and configure a complete Trust Execution Environment using Intel CPUs
 
+##Index
+* [Introduction](#introduction)
+  * [Goals](#goals)
+  * [Useful Links](#useful-links)
+* [Setup SGX components on your cloud](#setup-SGX-components-on-your-cloud)
+  * [Prerequisites](#Prerequisites)
+  * [Working environment](#Working-environment)
+  * [Staging step](#staging-step)
+  * [Build and install SDK](#Build-and-install-SDK)
+  * [Build and install PSW](#Build-and-install-PSW)
+  * [Adjust User Group](#Adjust-User-Group)
+  * [Test the Intel SGX Setup: TODO](#Test-the-Intel-SGX-Setup)
+* [Setup DCAP infrastructure on your cloud](Setup-DCAP-infrastructure-on-your-cloud)
+  * [Obtain API keys](#Obtain-API-keys)
+  * [Setup PCCS](#Setup-PCCS)
+  * [Provision Intel SGX enabled platform](#Provision-Intel-SGX-enabled-platform)
+* [Setup Gramine on your cloud](#Setup-Gramine-on-your-cloud)
+  * [Preliminary steps](#Preliminary-steps)
+  * [Build](#build)
+  * [Install](#install)
+* [Setup Relying Party Machine](#Setup-Relying-Party-Machine)
+  * [Preliminary steps](#Preliminary-steps)
+  * [Build](#build)
+  * [Install](#install)
+
 ## Introduction
 
 The following guide is intended to assist in setting up several components that work together to ensure a Trusted Execution Enviroment (*TEE*) in a cloud provider. In particular we have used Gramine in conjunction with Intel Software Guard Extension (*SGX*) and a Data Center Attestation Primitives (*DCAP*) infrastructure to obtain the intended result.
@@ -334,7 +359,7 @@ gramine-sgx-gen-private-key
 
 As shown in the figure of the [goals section](#goals), the relying party machine is located outside the edges of the local cloud network. This machine doesn't require a SGX infrastructure; it requires just Gramine for the use of remote attestation libraries (DCAP) and it needs configure the quoting providing library (QPL) to correctly contact the PCCS cloud service and retrieve the attestation collaterals.
 
-The procedure for building and installing Gramine is similar to the [previous section](setup-gramine-on-your-cloud). The only difference is that the SGX platform runs Gramine on Rocky Linux, while the Relying Party will run Gramine on Ubuntu 22.04 LTS.
+The procedure for building and installing Gramine is similar to the [previous section](#setup-gramine-on-your-cloud). The only difference is that the SGX platform runs Gramine on Rocky Linux, while the Relying Party will run Gramine on Ubuntu 22.04 LTS.
 
 ### Preliminary steps
 
