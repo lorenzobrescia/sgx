@@ -274,7 +274,9 @@ sudo systemctl restart aesmd
 
 ## Setup Gramine on your cloud
 
-### Build
+The complete guide to build Gramine is under their [official documentation](https://gramine.readthedocs.io/en/stable/devel/building.html).
+
+### Preliminary steps
 
 To build gramine you need some preliminary packages. To install some of these on a RHEL distribution (like Rocky Linux) you need to add the "Code Ready Builder" ([CRB](https://wiki.rockylinux.org/rocky/repo/#notes-on-unlisted-repositories)) repository:
 ```
@@ -285,18 +287,48 @@ dnf install epel-release
 Once this is done, download all the necessary packages as follows:
 ```
 dnf groupinstall "Development Tools" "Development Libraries"
+
 dnf install make automake gcc gcc-c++ kernel-devel autoconf \
 bison gawk nasm ninja-build pkgconf python3 python3-click \
 python3-jinja2 python3-pip python3-pyelftools wget
+
 sudo python3 -m pip install 'meson>=0.56' 'tomli>=1.1.0' 'tomli-w>=0.4.0'
 ```
 Also install the packages for the SGX dependencies:
 ```
-dnf install protobuf-c-devel protobuf-c-compiler protobuf-compiler \
-python3-cryptography python3-pip python3-protobuf
+dnf install protobuf-c-devel protobuf-c-compiler protobuf-compiler python3-cryptography python3-pip python3-protobuf
+```
+
+### Build
+
+In order to build Gramine, you need:
+1. Clone the repository
+```
+git clone https://github.com/gramineproject/gramine.git
+cd gramine
+```
+2. Build the project with meson
+```
+meson setup build/ \
+--buildtype=release \
+-Ddirect=enabled \
+-Dsgx=enabled \
+-Ddcap=enabled
+
+ninja -C build/
 ```
 
 ### Install
+
+Once gramine has been built, you can install it as follows:
+```
+sudo ninja -C build/ install
+```
+
+Finally you need to generate a provate key to signing SGX enclaves with the command below.
+```
+gramine-sgx-gen-private-key
+```
 
 ## Setup Relying Party Machine
 
