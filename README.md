@@ -252,7 +252,13 @@ PCKIDRetrievalTool
 ```
 Maybe there will be warnings, but the most important thing is to read "the data has been sent to the cache service successfully". This means that the provisioning tool was able to successfully contact the PCCS.
 
-
+Just for completeness, the ```network_setting.conf``` file should look something like the following:
+```
+PCCS_URL=https://PCCS_IP_ADDRESS:8181/sgx/certification/v4/platforms
+USE_SECURE_CERT=FALSE
+user_token =CHOSEN_USER_PASSWORD_DURING_PCCS_CONFIG
+proxy_type=direct
+```
 
 ## Setup Gramine on your cloud
 
