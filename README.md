@@ -196,21 +196,33 @@ apt install build-essential cracklib-runtime
 apt install sgx-dcap-pccs
 ```
 
-Installing the package will run a script that will start asking ```Do you want to install PCCS now? (Y/N)```. After answering ```Y``` you can start configure the PCCS. The following table resume the configuration process.
+Installing the package will run a script that will start asking ```Do you want to install PCCS now? (Y/N)```. After answering ```Y``` you can start configure the PCCS. The following table resume the configuration process:
 
 |Configuration question|Setting|
 |----------------------|-------|
 |Enter your http proxy server address, e.g. http://proxy-server:port (Press ENTER if there is no proxy server) :| ```enter```|
-|Do you want to configure PCCS now?|Y|
-|Set HTTPS listening port (1024-65535)| default 8181|
-|Set the PCCS service to accept local connections only?|N|
-|Set your Intel PCS API key|one of the two keys obtained in the [section obtain API keys](#obtain-api-keys)|
-|Choose caching fill method|REQ|
-|Set PCCS server administrator password||
-|Re-enter administrator password||
-|Set PCCS server user password||
-|Re-enter user password||
-|Do you want to generate insecure HTTPS key and cert for PCCS service?|Y|
+|Do you want to configure PCCS now?|```Y```|
+|Set HTTPS listening port (1024-65535)|```port number``` (default 8181)|
+|Set the PCCS service to accept local connections only?|```N```|
+|Set your Intel PCS API key|One of the two keys obtained in the [section obtain API keys](#obtain-api-keys)|
+|Choose caching fill method|```REQ```|
+|Set PCCS server administrator password|```choose password```|
+|Re-enter administrator password|```re-enter password```|
+|Set PCCS server user password|```choose password```|
+|Re-enter user password|```re-enter password```|
+|Do you want to generate insecure HTTPS key and cert for PCCS service?|```Y```|
+
+Finally, you can start the PCCS service:
+```
+sudo systemctl start pccs
+```
+
+Useful information about PCCS:
+- To better understand some of the settings above, such as the cache fill method, you can consult [Intel's official PCCS repository](https://github.com/intel/SGXDataCenterAttestationPrimitives/blob/master/QuoteGeneration/pccs/README.md)
+- The passwords chosen during configuration are used by the pck-id-retrieval-tool to send the SGX platform data to the PCCS service ([explore the next section](#provision-intel-sgx-enabled-platform))
+- We use a self-signed certificate, but a production environment will require a certificate that is signed by a recognized certificate authority.
+- All configuration can be found in the ```/opt/intel/sgx-dcap-pccs/config/default.json``` file. If you modify this file, then you need to restart the PCCS service: ```sudo systemctl restart pccs```
+- The log file is located in ```/opt/intel/sgx-dcap-pccs/logs/pccs_server.log```
 
 ### Provision Intel SGX enabled platform
 
