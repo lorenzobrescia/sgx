@@ -236,12 +236,12 @@ The provisioning tool needs to communicate with the PCCS service, therefore it n
 ```
 cd /opt/intel/sgx-pck-id-retrieval-tool/
 ```
-3. Change the ```network_setting.conf``` file like follows:
+2. Change the ```network_setting.conf``` file like follows:
   - The ```PCCS_URL``` have to match your caching service’s location
   - Uncomment the ```user_token``` parameter, and set it to the user password you created when configuring the PCCS ([PCCS section](#setup-pccs))
   - Set the ```proxy_type``` to fit your environment (most likely this will be "direct")
   - Ensure ```USE_SECURE_CERT``` is set to "FALSE" since we’re using a self-signed certificate
-4. Add the current user to the ```sgx_prv``` group
+3. Add the current user to the ```sgx_prv``` group
 ```
 sudo usermod -a G sgx_prv username
 ```
@@ -256,8 +256,20 @@ Just for completeness, the ```network_setting.conf``` file should look something
 ```
 PCCS_URL=https://PCCS_IP_ADDRESS:8081/sgx/certification/v4/platforms
 USE_SECURE_CERT=FALSE
-user_token =CHOSEN_USER_PASSWORD_DURING_PCCS_CONFIG
+user_token=CHOSEN_USER_PASSWORD_DURING_PCCS_CONFIG
 proxy_type=direct
+```
+At this point, in order for the SGX platform to work as intended, a handful more steps need to be taken:
+1. Configure the quote provider library (QPL) to connect to PCCS and obtain the attestation collateral. To make that you need to modify ```/etc/sgx_default_qcnl.conf``` file as follow:
+  - Set the ```PCCS_URL``` parameter to the location of the PCCS server
+  - Set the ```USE_SECURE_CERT``` parameter to "FALSE" since we’re using a self-signed certificate
+2. Configure the Architectural Enclave Service Manager (aesm) to use ECDSA quotes. Update the ```/etc/aesmd.conf``` file and uncomment the following row:
+```
+default quoting type = ecdsa_256
+```
+3. Restart the aesm service
+```
+sudo systemctl restart aesmd
 ```
 
 ## Setup Gramine on your cloud
