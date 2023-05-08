@@ -172,6 +172,10 @@ By doing this you will have obtained the keys that will be used to configure the
 
 ### Set up PCCS
 
+As shown in the figure of the [goals section](#goals), the PCCS caching service resides within the local network of the cloud. In our case, PCCS is installed on a different ubuntu machine than the SGX-enabled ones. However, this separation is not required and everything can be installed and configured in a single machine.
+
+
+
 ### Provision Intel SGX enabled platform
 
 ## Setup Gramine on your cloud
