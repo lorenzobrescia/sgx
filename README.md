@@ -172,8 +172,29 @@ By doing this you will have obtained the keys that will be used to configure the
 
 ### Set up PCCS
 
-As shown in the figure of the [goals section](#goals), the PCCS caching service resides within the local network of the cloud. In our case, PCCS is installed on a different ubuntu machine than the SGX-enabled ones. However, this separation is not required and everything can be installed and configured in a single machine.
+As shown in the figure of the [goals section](#goals), the PCCS caching service resides within the local network of the cloud. In our case, PCCS is installed on a different machine (ubuntu 22.04 LTS) than the SGX-enabled ones. However, this separation is not required and everything can be installed and configured in a single machine.
 
+The PCCS package has a dependency on Node.js version 14, so the first step is to install it:
+```
+curl -o setup.sh -sL https://deb.nodesource.com/setup_14.x
+$ chmod a+x setup.sh
+$ sudo ./setup.sh
+sudo apt-get -y install nodejs
+```
+
+In order to install the requested package we need to add the Intel repository to the apt sources list:
+```
+sudo su
+echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu jammy main' > /etc/apt/sources.list.d/intel-sgx.list
+wget -O - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | apt-key add -
+apt update
+```
+
+Now you can install the PCCS package and some dependency:
+```
+apt install build-essential cracklib-runtime
+apt install sgx-dcap-pccs
+```
 
 
 ### Provision Intel SGX enabled platform
