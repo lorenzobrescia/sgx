@@ -332,3 +332,61 @@ gramine-sgx-gen-private-key
 
 ## Setup Relying Party Machine
 
+As shown in the figure of the [goals section](#goals), the relying party machine is located outside the edges of the local cloud network. This machine doesn't require a SGX infrastructure; it requires just Gramine for the use of remote attestation libraries (DCAP) and it needs configure the quoting providing library (QPL) to correctly contact the PCCS cloud service and retrieve the attestation collaterals.
+
+The procedure for building and installing Gramine is similar to the [previous section](setup-gramine-on-your-cloud). The only difference is that the SGX platform runs Gramine on Rocky Linux, while the Relying Party will run Gramine on Ubuntu 22.04 LTS.
+
+### Preliminary steps
+
+Download all the necessary packages as follows:
+```
+apt-get install -y build-essential autoconf bison gawk nasm \
+ninja-build pkg-config python3 python3-click \
+python3-jinja2 python3-pip python3-pyelftools wget
+
+sudo python3 -m pip install 'meson>=0.56' 'tomli>=1.1.0' 'tomli-w>=0.4.0'
+```
+Then you need to install the packages for the SGX dependencies:
+```
+apt-get install -y libprotobuf-c-dev protobuf-c-compiler protobuf-compiler python3-cryptography python3-pip python3-protobuf
+```
+Also install dependencies for DCAP:
+```
+curl -fsSL https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | sudo apt-key add -
+
+echo 'deb [signed-by=/etc/apt/keyrings/intel-sgx-keyring.asc arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu jammy main' | sudo tee /etc/apt/sources.list.d/intel-sgx.list
+
+sudo apt-get update
+sudo apt -y --allow-unauthenticated install libsgx-dcap-quote-verify libsgx-dcap-quote-verify-dev
+
+sudo apt-get install libsgx-urts libsgx-dcap-ql libsgx-dcap-default-qpl libsgx-dcap-default-qpl-dev
+```
+Finally you have to configure the QPL to contact the right PCCS. To make that you need to modify ```/etc/sgx_default_qcnl.conf``` file as follow:
+- Set the ```PCCS_URL``` parameter to the location of the PCCS server
+- Set the ```USE_SECURE_CERT``` parameter to "FALSE" since we’re using a self-signed certificate
+
+### Build
+
+In order to build Gramine, you need:
+1. Clone the repository
+```
+git clone https://github.com/gramineproject/gramine.git
+cd gramine
+```
+2. Build the project with meson
+```
+meson setup build/ \
+--buildtype=release \
+-Ddirect=enabled \
+-Dsgx=enabled \
+-Ddcap=enabled
+
+ninja -C build/
+```
+
+### Install
+
+Once gramine has been built, you can install it as follows:
+```
+sudo ninja -C build/ install
+```
