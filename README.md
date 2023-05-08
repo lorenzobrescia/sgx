@@ -276,6 +276,26 @@ sudo systemctl restart aesmd
 
 ### Build
 
+To build gramine you need some preliminary packages. To install some of these on a RHEL distribution (like Rocky Linux) you need to add the "Code Ready Builder" ([CRB](https://wiki.rockylinux.org/rocky/repo/#notes-on-unlisted-repositories)) repository:
+```
+dnf config-manager --set-enabled crb
+dnf install epel-release
+```
+
+Once this is done, download all the necessary packages as follows:
+```
+dnf groupinstall "Development Tools" "Development Libraries"
+dnf install make automake gcc gcc-c++ kernel-devel autoconf \
+bison gawk nasm ninja-build pkgconf python3 python3-click \
+python3-jinja2 python3-pip python3-pyelftools wget
+sudo python3 -m pip install 'meson>=0.56' 'tomli>=1.1.0' 'tomli-w>=0.4.0'
+```
+Also install the packages for the SGX dependencies:
+```
+dnf install protobuf-c-devel protobuf-c-compiler protobuf-compiler \
+python3-cryptography python3-pip python3-protobuf
+```
+
 ### Install
 
 ## Setup Relying Party Machine
