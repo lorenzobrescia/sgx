@@ -1,6 +1,6 @@
 # Install and configure a complete Trust Execution Environment using Intel CPUs
 
-##Index
+## Index
 * [Introduction](#introduction)
   * [Goals](#goals)
   * [Useful Links](#useful-links)
