@@ -202,7 +202,7 @@ Installing the package will run a script that will start asking ```Do you want t
 |----------------------|-------|
 |Enter your http proxy server address, e.g. http://proxy-server:port (Press ENTER if there is no proxy server) :| ```enter```|
 |Do you want to configure PCCS now?|```Y```|
-|Set HTTPS listening port (1024-65535)|```port number``` (default 8181)|
+|Set HTTPS listening port (1024-65535)|```port number``` (default 8081)|
 |Set the PCCS service to accept local connections only?|```N```|
 |Set your Intel PCS API key|One of the two keys obtained in the [section obtain API keys](#obtain-api-keys)|
 |Choose caching fill method|```REQ```|
@@ -254,7 +254,7 @@ Maybe there will be warnings, but the most important thing is to read "the data 
 
 Just for completeness, the ```network_setting.conf``` file should look something like the following:
 ```
-PCCS_URL=https://PCCS_IP_ADDRESS:8181/sgx/certification/v4/platforms
+PCCS_URL=https://PCCS_IP_ADDRESS:8081/sgx/certification/v4/platforms
 USE_SECURE_CERT=FALSE
 user_token =CHOSEN_USER_PASSWORD_DURING_PCCS_CONFIG
 proxy_type=direct
