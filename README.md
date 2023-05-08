@@ -190,12 +190,27 @@ wget -O - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | 
 apt update
 ```
 
-Now you can install the PCCS package and some dependency:
+Now you can install the PCCS package and some dependencies:
 ```
 apt install build-essential cracklib-runtime
 apt install sgx-dcap-pccs
 ```
 
+Installing the package will run a script that will start asking ```Do you want to install PCCS now? (Y/N)```. After answering ```Y``` you can start configure the PCCS. The following table resume the configuration process.
+
+|Configuration question|Setting|
+|----------------------|-------|
+|Enter your http proxy server address, e.g. http://proxy-server:port (Press ENTER if there is no proxy server) :| ```enter```|
+|Do you want to configure PCCS now?|Y|
+|Set HTTPS listening port (1024-65535)| default 8181|
+|Set the PCCS service to accept local connections only?|N|
+|Set your Intel PCS API key|one of the two keys obtained in the [section obtain API keys](#obtain-api-keys)|
+|Choose caching fill method|REQ|
+|Set PCCS server administrator password||
+|Re-enter administrator password||
+|Set PCCS server user password||
+|Re-enter user password||
+|Do you want to generate insecure HTTPS key and cert for PCCS service?|Y|
 
 ### Provision Intel SGX enabled platform
 
